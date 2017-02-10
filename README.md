@@ -2,7 +2,7 @@
 An implementation of Publish Subscribe pattern in JavaScript, in both browser either server compatible version
 
 ## Usage
-### Set a new subscriber object calling the Subscribe class with a topic and a callback assigned
+#### Set a new subscriber object calling the Subscribe class with a topic and a callback assigned
 ```
 let result = null;
 let subscriber = new PubSub.Subscribe('test', (data) => {
@@ -15,7 +15,7 @@ You can pass moreover arbitrary object data as the second parameter
 PubSub.publish('test', { test: 'very nice test' });
 console.log(result); // 'very nice test'
 ```
-### Remove the subscription
+#### Remove the subscription
 'Remove' method, when called disconnect the subscriber from listening the topic
 ```
 let result = null;
