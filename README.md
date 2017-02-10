@@ -19,7 +19,7 @@ import PubSub from 'jspubsub';
 const PubSub = require('jspubsub');
 ```
 ## Usage
-#### Set a new subscriber object calling the Subscribe class with a topic and a callback assigned
+#### Set a new subscriber object calling the Subscribe class with a topic and a callback assigned as parameters
 ```
 let result = null;
 let subscriber = new PubSub.Subscribe('test', (data) => {
