@@ -1,5 +1,5 @@
 import assert from 'assert';
-import PubSub from '../lib/es6';
+import PubSub from '../lib/server/pubsub';
 
 describe('PubSub', () => {
 	describe('Subscribe class', () => {
