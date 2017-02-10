@@ -1,6 +1,23 @@
 # PubSub
 An implementation of Publish Subscribe pattern in JavaScript, in both browser either server compatible version
 
+## Setup
+#### Browser
+```
+<script src="pubsub.js"></script>
+```
+#### Server
+Install from npm register
+```
+npm install jspubsub
+```
+Import or require in your module
+```
+import PubSub from 'jspubsub';
+```
+```
+const PubSub = require('jspubsub');
+```
 ## Usage
 #### Set a new subscriber object calling the Subscribe class with a topic and a callback assigned
 ```
