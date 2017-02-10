@@ -16,7 +16,7 @@ PubSub.publish('test', { test: 'very nice test' });
 console.log(result); // 'very nice test'
 ```
 ### remove the subscription
-remove method, when called disconnect the subscriber from listening the topic
+Remove method, when called disconnect the subscriber from listening the topic
 ```
 let result = null;
 let subscriber = new PubSub.Subscribe('test', (data) => {
@@ -27,5 +27,5 @@ PubSub.publish('test', { test: 'very nice test' });
 console.log(result); // null
 ```
 ## Tests
-You can find test in the test/test.js file.
+You can find test in the test/test.js file. <br>
 run test with ```npm test``` command
