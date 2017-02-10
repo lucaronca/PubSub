@@ -6,7 +6,7 @@ An implementation of Publish Subscribe pattern in JavaScript, in both browser ei
 ```
 <script src="pubsub.js"></script>
 ```
-#### Server
+#### Server (requires node version 4 or higher)
 Install from npm register
 ```
 npm install jspubsub
