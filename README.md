@@ -16,7 +16,7 @@ PubSub.publish('test', { test: 'very nice test' });
 console.log(result); // 'very nice test'
 ```
 ### Remove the subscription
-Remove method, when called disconnect the subscriber from listening the topic
+'Remove' method, when called disconnect the subscriber from listening the topic
 ```
 let result = null;
 let subscriber = new PubSub.Subscribe('test', (data) => {
