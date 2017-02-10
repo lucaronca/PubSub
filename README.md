@@ -27,5 +27,5 @@ PubSub.publish('test', { test: 'very nice test' });
 console.log(result); // null
 ```
 ## Tests
-You can find test in the test/test.js file. <br>
-run test with ```npm test``` command
+You can find test in the tests/test.js file. <br>
+Install dependencies first with ```npm install``` and run tests with ```npm test``` command.
