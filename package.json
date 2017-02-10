@@ -2,7 +2,8 @@
   "name": "pub-sub",
   "version": "1.0.0",
   "description": "Publish Subscribe JavaScript library",
-  "main": "src/es6.js",
+  "repository": "https://github.com/lucaronca/PubSub",
+  "main": "lib/server/pubsub.js",
   "scripts": {
     "test": "mocha --compilers js:babel-register"
   },
