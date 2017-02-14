@@ -68,6 +68,21 @@ describe('PubSub', () => {
 
 		});
 
+		describe('#count', () => {
+
+			const subscriber5 = new PubSub.Subscribe('test5', () => {
+				return true;
+			});
+
+			it('subscriber instance has a count method', () => {
+				for (let i = 0; i < 5; i++) {
+					PubSub.publishSync('test5');
+				}
+				assert.equal(subscriber5.count, 5);
+			});
+
+		});
+
 	});
 
 });
