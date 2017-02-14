@@ -78,7 +78,22 @@ describe('PubSub', () => {
 				for (let i = 0; i < 5; i++) {
 					PubSub.publishSync('test5');
 				}
-				assert.equal(subscriber5.count, 5);
+				assert.equal(5, subscriber5.count);
+			});
+
+		});
+
+		describe('SubscribeOnce class', () => {
+
+			const subscriber6 = new PubSub.SubscribeOnce('test6', () => {
+				return true;
+			});
+
+			it('this class fire its topic executor only once', () => {
+				for (let i = 0; i < 5; i++) {
+					PubSub.publishSync('test6');
+				}
+				assert.equal(1, subscriber6.count);
 			});
 
 		});
