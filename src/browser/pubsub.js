@@ -20,9 +20,17 @@
 
     };
 
-    PubSub.Subscribe.prototype.remove = function() {
+    PubSub.Subscribe.prototype = {
+
+        //count topic executions
+        get count() {
+            return _topics[this.topic].executions;
+        },
         // Provide handle back for removal of topic
-        delete _topics[this.topic][this.index];
+        remove: function() {
+            delete _topics[this.topic].executors[this.index];
+        }
+        
     };
 
     // static method 'publish'
@@ -51,21 +59,22 @@
 
     function _setExecutor() {
         // Create the topic's object if not yet created
-        if(!_hasTopic(this.topic)) _topics[this.topic] = [];
+        if(!_hasTopic(this.topic)) _topics[this.topic] = { 'executors': [], 'executions': 0 };
 
         if (typeof this.executor != 'function'){
             console.error('Subscribe executor must be a function')
             return;
         }
         // Add the listener to queue
-        this.index = _topics[this.topic].push(this.executor) -1;
+        this.index = _topics[this.topic].executors.push(this.executor) -1;
 
     }
 
     function _fireExecutors(topic, data) {
         // Cycle through _topics queue, fire!
-        _topics[topic].forEach(function(executor) {
+        _topics[topic].executors.forEach(function(executor) {
             executor(data || {});
+            _topics[topic].executions++;
         });
     }
 

@@ -9,20 +9,24 @@ class Subscribe {
     this.executor = executor;
 
     // Create the topic's object if not yet created
-    if(!_hasTopic(this.topic)) _topics[this.topic] = [];
+    if(!_hasTopic(this.topic)) _topics[this.topic] = { 'executors': [], 'executions': 0 };
 
     if (typeof this.executor != 'function'){
         console.error('Subscribe executor must be a function')
         return;
     }
     // Add the listener to queue
-    this.index = _topics[this.topic].push(this.executor) -1;
+    this.index = _topics[this.topic].executors.push(this.executor) -1;
 
+  }
+
+  get count() {
+    return _topics[this.topic].executions;
   }
   
   remove() {
     // Provide handle back for removal of topic
-    delete _topics[this.topic][this.index];
+    delete _topics[this.topic].executors[this.index];
   }
 
 }
@@ -47,10 +51,11 @@ class Publish {
 }
 
 function _fireExecutors() {
-    // Cycle through _topics queue, fire!
-    _topics[this.topic].forEach((executor) => {
-      executor(this.data || {});
-    });
+  // Cycle through _topics queue, fire!
+  _topics[this.topic].executors.forEach((executor) => {
+    executor(this.data || {});
+    _topics[this.topic].executions++;
+  });
 }
 
 function _checkValidTypes(entry) {
