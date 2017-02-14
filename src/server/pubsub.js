@@ -4,20 +4,11 @@ const _hasTopic = Object.prototype.hasOwnProperty.bind(_topics);
 
 class Subscribe {
 
-  constructor(topic, executor) {
+  constructor(topic, executor, isSingleton = false) {
     this.topic = topic;
     this.executor = executor;
-
-    // Create the topic's object if not yet created
-    if(!_hasTopic(this.topic)) _topics[this.topic] = { 'executors': [], 'executions': 0 };
-
-    if (typeof this.executor != 'function'){
-        console.error('Subscribe executor must be a function')
-        return;
-    }
-    // Add the listener to queue
-    this.index = _topics[this.topic].executors.push(this.executor) -1;
-
+    this.isSingleton = isSingleton;
+    _attachExecutor.call(this);
   }
 
   get count() {
@@ -27,6 +18,15 @@ class Subscribe {
   remove() {
     // Provide handle back for removal of topic
     delete _topics[this.topic].executors[this.index];
+  }
+
+}
+
+//extend Subscribe wirh a singleton modality
+class SubscribeOnce extends Subscribe {
+
+  constructor(topic, executor) {
+    super(topic, executor, true);
   }
 
 }
@@ -45,13 +45,30 @@ class Publish {
     if(!this.topic) return;
 
     // trigger the executors
-    if (this.async) setTimeout(_fireExecutors.bind(this), 0);
-    else _fireExecutors.call(this);
+    if (this.async) return setTimeout(_fireExecutors.bind(this), 0);
+    _fireExecutors.call(this);
   }
+}
+
+function _attachExecutor() {
+  // Create the topic's object if not yet created
+  if(!_hasTopic(this.topic)) _topics[this.topic] = { 
+    'executors': [],
+    'executions': 0,
+    'isSingleton': this.isSingleton
+  };
+
+  if (typeof this.executor != 'function'){
+      console.error('Subscribe executor must be a function')
+      return;
+  }
+  // Add the listener to queue
+  this.index = _topics[this.topic].executors.push(this.executor) -1;
 }
 
 function _fireExecutors() {
   // Cycle through _topics queue, fire!
+  if (_topics[this.topic].isSingleton && _topics[this.topic].executions != 0) return;
   _topics[this.topic].executors.forEach((executor) => {
     executor(this.data || {});
     _topics[this.topic].executions++;
@@ -68,6 +85,7 @@ function _checkValidTypes(entry) {
 
 const PubSub = {
   Subscribe,
+  SubscribeOnce,
   publish: (topic, data) => {
     let pub = new Publish(topic, data, true);
     return pub.fire();

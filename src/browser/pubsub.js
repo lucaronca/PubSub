@@ -7,7 +7,7 @@
     function PubSub() {};
     // topic private collection
     var _topics = {};
-    // shorthand fbound function
+    // shorthand bound function
     var _hasTopic = Object.prototype.hasOwnProperty.bind(_topics);
 
     // Subscribe class function
@@ -15,8 +15,8 @@
 
         this.topic = topic;
         this.executor = executor;
-
-        _setExecutor.call(this);
+        this.isSingleton = this.isSingleton || false;
+        _attachExecutor.call(this);
 
     };
 
@@ -30,8 +30,21 @@
         remove: function() {
             delete _topics[this.topic].executors[this.index];
         }
-        
+
     };
+
+    //extend Subscribe wirh a singleton modality
+    PubSub.SubscribeOnce = function() {
+        this.isSingleton = true;
+        // Call the parent constructor
+        PubSub.Subscribe.apply(this, arguments);
+    }
+
+    // inherit Subscribe
+    PubSub.SubscribeOnce.prototype = Object.create(PubSub.Subscribe.prototype);
+
+    // correct the constructor pointer because it points to PubSub.SubscribeOnce
+    PubSub.SubscribeOnce.prototype.constructor = PubSub.SubscribeOnce;
 
     // static method 'publish'
     PubSub.publish = function(topic, data) {
@@ -45,8 +58,8 @@
         this.async = (this.async === undefined);
 
         // trigger the executors
-        if (this.async) setTimeout(_fireExecutors.bind(null, topic, data), 0);
-        else _fireExecutors(topic, data);
+        if (this.async) return setTimeout(_fireExecutors.bind(null, topic, data), 0);
+        _fireExecutors(topic, data);
          
     };
 
@@ -57,9 +70,13 @@
         this.publish.call(this, topic, data);
     };
 
-    function _setExecutor() {
+    function _attachExecutor() {
         // Create the topic's object if not yet created
-        if(!_hasTopic(this.topic)) _topics[this.topic] = { 'executors': [], 'executions': 0 };
+        if(!_hasTopic(this.topic)) _topics[this.topic] = {
+            'executors': [],
+            'executions': 0,
+            'isSingleton': this.isSingleton
+        };
 
         if (typeof this.executor != 'function'){
             console.error('Subscribe executor must be a function')
@@ -72,6 +89,7 @@
 
     function _fireExecutors(topic, data) {
         // Cycle through _topics queue, fire!
+        if (_topics[topic].isSingleton && _topics[topic].executions != 0) return;
         _topics[topic].executors.forEach(function(executor) {
             executor(data || {});
             _topics[topic].executions++;
