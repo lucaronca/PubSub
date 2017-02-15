@@ -1,5 +1,5 @@
 # PubSub
-An implementation of Publish Subscribe pattern in JavaScript, in both browser either server compatible versions
+An implementation of [Publish Subscribe pattern](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) in JavaScript, in both browser either server compatible versions
 
 ## Setup
 #### Browser
@@ -21,28 +21,29 @@ const PubSub = require('jspubsub');
 ## Usage
 #### Set a new subscriber object calling the Subscribe class with a topic and a callback assigned as parameters
 ```
-let result = null;
 let subscriber = new PubSub.Subscribe('test', (data) => {
-	result = data.test;
+	console.log(data.test)
 });
 ```
 The executor callback will be fired when the static 'publish' method is called with the related toipc as first argument.
 You can pass moreover arbitrary object data as the second parameter
 ```
 PubSub.publish('test', { test: 'very nice test' });
-console.log(result); // 'very nice test'
+// console logs 'very nice test'
 ```
 #### Remove the subscription
 The 'remove' method, when called disconnect the subscriber from listening the topic
 ```
-let result = null;
 let subscriber = new PubSub.Subscribe('test', (data) => {
-	result = data.test;
+	console.log(data.test)
 });
 subscriber.remove();
 PubSub.publish('test', { test: 'very nice test' });
-console.log(result); // null
+// console logs nothing
 ```
+## Note about async publishing
+
+
 ## Tests
 You can find tests in test/test.js <br>
 Install dependencies first with ```npm install``` and run tests with ```npm test``` command.
