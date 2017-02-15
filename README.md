@@ -41,17 +41,17 @@ let subscriber = new PubSub.SubscribeOnce('test', () => {
 for (let i = 0; i < 5; i++) {
 	PubSub.publish('test');
 }
-// console log 'this will be printed once' just once
+// console logs 'this will be printed once' just once
 ```
 ## Note about async and sync publishing
-PubSub's method has been designed to be asynchronous, so topic published will not block the main thread and your program will be more predictable. If you want instead to do actions that need to be executend soon there is a 'publishSync' method:
+PubSub's publish method has been designed to be asynchronous, so topic published will not block the main thread and your program will be more predictable. If you want instead to do actions that need to be executend soon there is a 'publishSync' method:
 ```
 let result = null;
 let subscriber = new PubSub.Subscribe('test', (data) => {
 	result = data.test;
 });
 PubSub.publish('test', { test: 'very nice test' });
-console.log(result) // null, beacuse execution of the topic callback has been pushed at the end of the queue
+console.log(result) // null, beacuse execution of the topic is async so the callback has been pushed at the end of the queue
 PubSub.publishSync('test', { test: 'very nice test' });
 console.log(result) // 'very nice test'
 ```
