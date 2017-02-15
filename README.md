@@ -76,7 +76,7 @@ console.log(subscriber.count) // 5
 Note that we have used 'publishSync' beacuse we wanted to check the actual count within the current thread, so changed caused by the topic's publishing had to be triggered and executed immediately.
 
 ### Remove the subscription
-With the 'remove' method, when called we disconnect the subscriber from listening from the topic which he was subscribed to:
+With the 'remove' method, when called we disconnect the subscriber from listening the topic it was subscribed to:
 ```
 let subscriber = new PubSub.Subscribe('test', (data) => {
 	console.log(data.test)
