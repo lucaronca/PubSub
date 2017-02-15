@@ -76,6 +76,7 @@ describe('PubSub', () => {
 
 			it('subscriber instance has a count method', () => {
 				for (let i = 0; i < 5; i++) {
+					// sync execution to check count getter soon
 					PubSub.publishSync('test5');
 				}
 				assert.equal(5, subscriber5.count);
