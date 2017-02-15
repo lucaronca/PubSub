@@ -47,6 +47,7 @@ for (let i = 0; i < 5; i++) {
 PubSub's publish method has been designed to be asynchronous, so topic published will not block the main thread and your program will be more predictable. If you want instead to do actions that need to be executend soon there is a 'publishSync' method:
 ```
 let result = null;
+
 let subscriber = new PubSub.Subscribe('test', (data) => {
 	result = data.test;
 });
