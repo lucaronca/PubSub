@@ -42,14 +42,13 @@ PubSub.publish('test', { test: 'very nice test' });
 // console logs nothing
 ```
 ## Note about async and sync publishing
-PubSub's method has been designed to be asynchronous, so that topic published will not block the main thread. If you want instead
-to do actions that need to be executend soon there is a publishSync method:
+PubSub's method has been designed to be asynchronous, so topic published will not block the main thread and your program will be more predictable. If you want instead to do actions that need to be executend soon there is a 'publishSync' method:
 ```
 let result = null;
 let subscriber = new PubSub.Subscribe('test', (data) => {
 	result = data.test;
 });
-PubSub.publish('test', { test: 'very nice test' });
+PubSub.publishSync('test', { test: 'very nice test' });
 console.log(result) // 'very nice test'
 ```
 ## Tests
