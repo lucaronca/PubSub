@@ -1,6 +1,6 @@
 {
   "name": "jspubsub",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "description": "Publish Subscribe JavaScript library",
   "repository": "https://github.com/lucaronca/PubSub",
   "main": "lib/server/pubsub.js",
