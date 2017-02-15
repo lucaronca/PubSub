@@ -22,10 +22,11 @@ class Subscribe {
 
 }
 
-//extend Subscribe wirh a singleton modality
+// Subscribe singleton modality, SubscribeOnce extends Subscribe
 class SubscribeOnce extends Subscribe {
 
   constructor(topic, executor) {
+    // call parent constructor
     super(topic, executor, true);
   }
 

@@ -33,14 +33,14 @@
 
     };
 
-    //extend Subscribe wirh a singleton modality
+    // Subscribe singleton modality
     PubSub.SubscribeOnce = function() {
         this.isSingleton = true;
-        // Call the parent constructor
+        // Call parent constructor
         PubSub.Subscribe.apply(this, arguments);
     }
 
-    // inherit Subscribe
+    // SubscribeOnce extends Subscribe
     PubSub.SubscribeOnce.prototype = Object.create(PubSub.Subscribe.prototype);
 
     // correct the constructor pointer because it points to PubSub.SubscribeOnce
