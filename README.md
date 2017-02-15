@@ -41,9 +41,17 @@ subscriber.remove();
 PubSub.publish('test', { test: 'very nice test' });
 // console logs nothing
 ```
-## Note about async publishing
-
-
+## Note about async and sync publishing
+PubSub's method has been designed to be asynchronous, so that topic published will not block the main thread. If you want instead
+to do actions that need to be executend soon there is a publishSync method:
+```
+let result = null;
+let subscriber = new PubSub.Subscribe('test', (data) => {
+	result = data.test;
+});
+PubSub.publish('test', { test: 'very nice test' });
+console.log(result) // 'very nice test'
+```
 ## Tests
 You can find tests in test/test.js <br>
 Install dependencies first with ```npm install``` and run tests with ```npm test``` command.
