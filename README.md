@@ -50,8 +50,10 @@ let result = null;
 let subscriber = new PubSub.Subscribe('test', (data) => {
 	result = data.test;
 });
+
 PubSub.publish('test', { test: 'very nice test' });
 console.log(result) // null, beacuse execution of the topic is async so the callback has been pushed at the end of the queue
+
 PubSub.publishSync('test', { test: 'very nice test' });
 console.log(result) // 'very nice test'
 ```
