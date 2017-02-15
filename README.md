@@ -43,7 +43,7 @@ PubSub.publishSync('test', { test: 'very nice test' });
 console.log(result) // 'very nice test'
 ```
 ## Working with the subscriber instance
-## Count getter
+### Count getter
 Every instance of PubSub.Subscribe class has a getter that expose the number of times the topic has been called,<br>
 you might find this useful for debugging:
 
