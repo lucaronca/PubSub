@@ -31,31 +31,7 @@ You can pass moreover arbitrary object data as the second parameter
 PubSub.publish('test', { test: 'very nice test' });
 // console logs 'very nice test'
 ```
-## Working with the subscriber instance
-## Count getter
-Every instance of PubSub.Subscribe class has a getter that expose the number of times the topic has been called,<br>
-you might find this useful for debugging:
 
-```
-let subscriber = new PubSub.Subscribe('test', (data) => {
-	console.log(data.test)
-});
-PubSub.publish('test', { test: 'very nice test' });
-for (let i = 0; i < 5; i++) {
-	PubSub.publish('test');
-}
-console.log(subscriber.count) // 5
-```
-#### Remove the subscription
-The 'remove' method, when called disconnect the subscriber from listening the topic
-```
-let subscriber = new PubSub.Subscribe('test', (data) => {
-	console.log(data.test)
-});
-subscriber.remove();
-PubSub.publish('test', { test: 'very nice test' });
-// console logs nothing
-```
 ## Note about async and sync publishing
 PubSub's method has been designed to be asynchronous, so topic published will not block the main thread and your program will be more predictable. If you want instead to do actions that need to be executend soon there is a 'publishSync' method:
 ```
@@ -66,6 +42,34 @@ let subscriber = new PubSub.Subscribe('test', (data) => {
 PubSub.publishSync('test', { test: 'very nice test' });
 console.log(result) // 'very nice test'
 ```
+## Working with the subscriber instance
+## Count getter
+Every instance of PubSub.Subscribe class has a getter that expose the number of times the topic has been called,<br>
+you might find this useful for debugging:
+
+```
+let subscriber = new PubSub.Subscribe('test', (data) => {
+	console.log(data.test)
+});
+PubSub.publishSync('test', { test: 'very nice test' });
+for (let i = 0; i < 5; i++) {
+	PubSub.publish('test');
+}
+console.log(subscriber.count) // 5
+```
+Note that we have used 'publishSync' beacuse we wanted to check the actual count within the current thread, so changed caused by the topic's publishing had to be executed immediately.
+
+#### Remove the subscription
+The 'remove' method, when called disconnect the subscriber from listening the topic
+```
+let subscriber = new PubSub.Subscribe('test', (data) => {
+	console.log(data.test)
+});
+subscriber.remove();
+PubSub.publish('test', { test: 'very nice test' });
+// console logs nothing
+```
+
 ## Tests
 You can find tests in test/test.js <br>
 Install dependencies first with ```npm install``` and run tests with ```npm test``` command.
