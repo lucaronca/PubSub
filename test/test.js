@@ -14,7 +14,7 @@ describe('PubSub', () => {
 			});
 			// publish the topic
 			PubSub.publish('test3', { test: 'very nice test' });
-			// note that the variable has been yet changed, since publish method is asynchronous
+			// note that the variable hasn't been yet changed, since publish method is asynchronous
 			assert.notEqual('very nice test', result);
 		});
 
