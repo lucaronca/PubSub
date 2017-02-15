@@ -31,6 +31,21 @@ You can pass moreover arbitrary object data as the second parameter
 PubSub.publish('test', { test: 'very nice test' });
 // console logs 'very nice test'
 ```
+## Working with the subscriber instance
+## Count getter
+Every instance of PubSub.Subscribe class has a getter that expose the number of times the topic has been called,<br>
+you might find this useful for debugging:
+
+```
+let subscriber = new PubSub.Subscribe('test', (data) => {
+	console.log(data.test)
+});
+PubSub.publish('test', { test: 'very nice test' });
+for (let i = 0; i < 5; i++) {
+	PubSub.publish('test');
+}
+console.log(subscriber.count) // 5
+```
 #### Remove the subscription
 The 'remove' method, when called disconnect the subscriber from listening the topic
 ```
