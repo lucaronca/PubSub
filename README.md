@@ -1,5 +1,5 @@
 # PubSub
-An implementation of [Publish Subscribe pattern](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) in JavaScript, in both browser either server compatible versions
+An implementation of [Publish Subscribe pattern](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) in JavaScript, in both browser and server compatible versions
 
 ## Setup
 #### Browser
