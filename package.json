@@ -1,7 +1,7 @@
 {
   "name": "jspubsub",
-  "version": "1.0.5",
-  "description": "Publish Subscribe JavaScript library",
+  "version": "1.1.0",
+  "description": "An implementation of Publish Subscribe pattern in JavaScript, in both browser and server compatible versions",
   "repository": "https://github.com/lucaronca/PubSub",
   "main": "lib/server/pubsub.js",
   "scripts": {
@@ -10,6 +10,7 @@
   "keywords": [
     "JavaScript"
   ],
+  "readmeFilename": "README.md",
   "author": "Luca Ronca",
   "license": "ISC",
   "devDependencies": {
