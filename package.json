@@ -8,9 +8,9 @@
     "test": "mocha --compilers js:babel-register"
   },
   "keywords": [
-    "JavaScript"
+    "JavaScript",
+    "Events"
   ],
-  "readmeFilename": "README.md",
   "author": "Luca Ronca",
   "license": "ISC",
   "devDependencies": {
